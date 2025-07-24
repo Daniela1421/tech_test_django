@@ -1,18 +1,38 @@
-Requisitos
-• Docker ≥ 20.10
-• Docker Compose ≥ 1.29
+# 🧾 Prueba Técnica Backend - Registro de Usuarios e Ingresos
 
-Pasos para poner en marcha
-Clona este repositorio
-git clone https://github.com/tu-usuario/tech_test_django.git
+Este proyecto es una API desarrollada con Django y Django REST Framework, creada como parte de una prueba técnica.
+
+## 🚀 Requisitos
+
+- Python 3.10+
+- Docker ≥ 20.10
+- Docker Compose ≥ 1.29
+
+## 🔧 Instalación y ejecución
+
+### 1. Clona este repositorio
+
+```bash
+git clone https://github.com/Daniela1421/tech_test_django.git
 cd tech_test_django
+```
 
-Copia y edita el archivo de variables de entorno
+### 2. Copia y edita el archivo de variables de entorno
+
+```bash
 cp .env.example .env
-• Genera un valor seguro para DJANGO_SECRET_KEY:
+```
+
+- Genera un valor seguro para `DJANGO_SECRET_KEY`:
+
+```bash
 openssl rand -base64 32
-• Pega ese valor en la línea DJANGO_SECRET_KEY= de tu .env
-• Asegúrate de que el resto de valores quede así:
+```
+
+- Pega ese valor en la línea `DJANGO_SECRET_KEY=` de tu `.env`
+- Asegúrate de que el resto de valores quede así:
+
+```env
 DJANGO_DEBUG=True
 POSTGRES_DB=tech_test_db
 POSTGRES_USER=postgres
@@ -22,41 +42,79 @@ POSTGRES_PORT=5432
 DJANGO_SUPERUSER_USERNAME=admin
 DJANGO_SUPERUSER_PASSWORD=admin
 DJANGO_SUPERUSER_EMAIL=admin@example.com
+```
 
-Construye las imágenes Docker
-make build
+### 3. Construye las imágenes Docker
 
-Levanta los servicios en segundo plano
+Se puede ejecutar alguno de los dos comandos:
+
+```bash
+make build 
+docker compose build
+```
+
+### 4. Levanta los servicios
+
+Se puede ejecutar alguno de los dos comandos:
+```bash
 make up
-• Arranca db (PostgreSQL) con volumen persistente
-• Arranca web (Django + Gunicorn), aplica migraciones, crea superuser y recoge estáticos
+docker compose up -d
+```
 
-Verifica que todo esté funcionando
+Esto arrancará:
+- db (PostgreSQL) con volumen persistente
+- web (Django + Gunicorn), aplicará migraciones, creará el superusuario y recogerá archivos estáticos.
+
+### 5. Verifica que todo esté funcionando
+
+```bash
 docker compose ps
-Debes ver los contenedores db y web en estado Up
+```
 
-Accede al panel de administración de Django
-En el navegador, visita http://localhost:8000/admin/
-• Usuario: admin
-• Contraseña: admin
+Debes ver los contenedores `db` y `web` en estado `Up`.
 
-Comandos útiles
-Tarea	Comando
-Ver logs en tiempo real - make logs
-Ejecutar migraciones manualmente - make migrate
-Abrir shell de Django - make shell
-Detener contenedores - make down
-Detener y eliminar volúmenes - docker compose down -v
+### 6. Accede al panel de administración de Django
 
-Estructura del proyecto:
+Visita: [http://localhost:8000/admin/](http://localhost:8000/admin/)
 
-tech_test_django/
-├── core/ App vacía para tus modelos y vistas
-├── tech_test_django/ Configuración de Django (settings, urls, wsgi, etc.)
-├── Dockerfile
-├── docker-compose.yml
-├── entrypoint.sh
-├── Makefile
-├── requirements.txt
-├── .env.example
-└── README.md (este archivo)
+- Usuario: `admin`
+- Contraseña: `admin`
+
+## 📫 Endpoints disponibles
+
+Una vez levantado, puedes acceder a los endpoints en:
+
+- Lista de usuarios: `GET /api/usuarios/`
+- Crear usuario: `POST /api/usuarios/`
+- Editar usuario: `PUT /api/usuarios/<id>/`
+- Eliminar usuario: `DELETE /api/usuarios/</id>/`
+- Lista de ingresos: `GET /api/ingresos/`
+- Crear ingreso: `POST /api/ingresos/`
+
+Usa Thunder Client, Postman o cualquier herramienta para hacer pruebas.
+
+### Ejemplo de payload para crear un usuario
+
+```json
+{
+  "first_name": "Juan",
+  "last_name": "Perez",
+  "email": "juan@example.com", 
+}
+```
+
+### Ejemplo de payload para crear un ingreso
+
+```json
+{
+  "fecha_entrada": "2024-07-01T08:00:00Z",
+  "fecha_salida": "2024-07-01T17:00:00Z",
+  "usuario": 1
+}
+```
+
+**Nota**: Asegúrate de usar un ID de usuario válido al momento de crear un ingreso.
+
+## Autor
+
+Desarrollado por [Daniela Ducuara](https://github.com/Daniela1421)
