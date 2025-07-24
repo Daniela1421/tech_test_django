@@ -117,4 +117,4 @@ Usa Thunder Client, Postman o cualquier herramienta para hacer pruebas.
 
 ## Autor
 
-Desarrollado por [Daniela Ducuara](https://github.com/Daniela1421)
+Desarrollado por Daniela Ducuara
